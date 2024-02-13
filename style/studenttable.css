@@ -1,0 +1,79 @@
+/*studentsTable*/
+#Students table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#Students th,
+#Students td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+#Students th {
+    background-color: #f2f2f2;
+}
+
+#Students tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#Students tr:hover {
+    background-color: #ddd;
+}
+
+#Students button {
+    padding: 5px 10px;
+    cursor: pointer;
+    border: none;
+    background-color: #4caf50;
+    color: white;
+    border-radius: 4px;
+}
+
+#Students button:hover {
+    background-color: #45a049;
+}
+
+/*pagination*/
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1em;
+    flex-wrap: wrap;
+}
+
+.pagination button{
+    margin-top: 25px;
+}
+
+.page-numbers {
+    margin: 1em 1em 0;
+}
+
+.page-number {
+    padding: 0.5em;
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.active {
+    opacity: 1;
+}
+
+@media screen and (min-width: 540px) {
+    .backward {
+        order: 1;
+    }
+
+    .page-numbers {
+        order: 2;
+        margin-top: 0;
+    }
+
+    .forward {
+        order: 3;
+    }
+}

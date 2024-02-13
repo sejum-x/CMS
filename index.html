@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>CMS</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/navbar.css">
+    <link rel="stylesheet" href="style/sidetab.css">
+    <link rel="stylesheet" href="style/studenttable.css">
+    <link rel="stylesheet" href="style/modal.css">
     <script src="script.js"></script>
 </head>
 <body>
@@ -14,9 +18,14 @@
         <li><a href="#">
             <svg class="feather-bell" fill="none" height="24" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
         </a></li>
-        <li><a href="#">
-            <img src="assets/user_icon.svg" alt="SVG Image" height="26" width="26"> Name Surname
-        </a></li>
+        <li class='dropdown'><a href="#">
+            <img src='assets/user_icon.svg' alt='SVG Image' height='26' width='26'> Name Surname
+        </a>
+            <div class='dropdown-content'>
+                <a href='#'>Profile</a>
+                <a href='#'>Logout</a>
+            </div>
+        </li>
     </ul>
 </div>
 <!--VerticalTabMenu-->
@@ -34,7 +43,60 @@
 <div id="Students" class="tabcontent">
     <h3>Students</h3>
 
-    <button onclick="addStudent()" class="AddStudentBt">Додати студента</button>
+   <!-- <button onclick="addStudent()" class="AddStudentBt">Додати студента</button> -->
+
+    <button class="AddStudentBt" onclick="OpenAddStudentModal()">+ Add</button>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">×</span>
+                <h2>Add Student</h2>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <label for="group">Group:</label>
+                    <select id="group" name="group">
+                        <option value="">Select Group</option>
+                        <!-- Add group options here -->
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="fname">First Name:</label>
+                    <input type="text" id="fname" name="fname">
+                </div>
+
+                <div class="input-group">
+                    <label for="lname">Last Name:</label>
+                    <input type="text" id="lname" name="lname">
+                </div>
+
+                <div class="input-group">
+                    <label for="gender">Gender:</label>
+                    <select id="gender" name="gender">
+                        <option value="">Select Gender</option>
+                        <!-- Add gender options here -->
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="bday">Birthday:</label>
+                    <input type="date" id="bday" name="bday">
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button  onclick="CloseAddStudentModal()">Cancel</button>
+                <button onclick="createStudent()">Create</button>
+            </div>
+        </div>
+    </div>
+
+
     <div id="tableContainer">
         <table id="studentsTable">
             <thead>
@@ -54,10 +116,8 @@
         </table>
     </div>
     <div class="pagination">
-        <button class="backward" id="first">first</button>
         <button onclick="previousPage()" class="backward" id="prev">Previous</button>
         <button onclick="nextPage()" class="forward" id="next">Next</button>
-        <button class="forward" id="last">last</button>
         <div class="page-numbers" id="pageNumbers"></div>
     </div>
 </div>
@@ -67,5 +127,23 @@
     <p>Tasks</p>
 </div>
 
+
+<script>
+    var modal = document.getElementById("myModal");
+    var closeButton = modal.querySelector(".close");
+    function OpenAddStudentModal() {
+        modal.style.display = "block";
+    }
+    function CloseAddStudentModal() {
+        modal.style.display = "none";
+    }
+    closeButton.addEventListener("click", CloseAddStudentModal);
+
+    window.addEventListener("click", function(event) {
+        if (event.target === modal) {
+            CloseAddStudentModal();
+        }
+    });
+</script>
 </body>
 </html>

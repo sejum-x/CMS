@@ -1,0 +1,49 @@
+/*VerticalTabMenu*/
+* {box-sizing: border-box}
+
+/* Style the tab */
+.tab {
+    float: left;
+    width: 20%;
+    height: auto;
+    padding: 0;
+    margin: 0;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+    display: block;
+    background-color: inherit;
+    color: black;
+    padding: 15px 90px;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    font-weight: bold;
+}
+/* Create an active/current "tab button" class */
+.tab button.active {
+    font-weight: bold;
+}
+
+/* Style the tab content */
+.tabcontent {
+    float: left;
+    padding: 0px 12px;
+    width: 80%;
+    border: none;
+    height: max-content;
+    display: none;
+    margin: 0;
+}
+
+.tabcontent:first-child {
+    display: block;
+}

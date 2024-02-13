@@ -55,12 +55,22 @@ function renderStudents(page) {
     });
 }
 
-function addStudent() {
+function createStudent() {
+    var group = document.getElementById('group').value;
+    var fname = document.getElementById('fname').value;
+    var lname = document.getElementById('lname').value;
+    var gender = document.getElementById('gender').value;
+    var bday = document.getElementById('bday').value;
+
+    addStudent(group, fname + ' ' + lname, gender, bday);
+}
+
+function addStudent(group, name, gender, birthday) {
     var newStudent = {
-        group: "C",
-        name: "Emily",
-        gender: "Female",
-        birthday: "2000-03-03",
+        group: group,
+        name: name,
+        gender: gender,
+        birthday: birthday,
         status: "Active"
     };
     studentsData.push(newStudent);
@@ -91,3 +101,4 @@ function nextPage() {
 document.addEventListener("DOMContentLoaded", function() {
     renderStudents(currentPage);
 });
+

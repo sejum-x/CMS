@@ -1,0 +1,51 @@
+/*NavBar*/
+.navbar {
+    display: flex;
+    justify-content: space-between; /* Рівномірно розподілити простір між елементами */
+    align-items: center; /* Вирівняти елементи по вертикалі */
+    padding: 1rem 2rem;
+    background: #9b9b9b;
+    margin: 0;
+    height: 50px;
+}
+
+.navbar h2{
+    color: #ffffff;
+}
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+
+.navbar li {
+    padding-left: 1rem;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #ffffff
+}
+
+@media only screen and (max-width: 600px) {
+    .navbar {
+        flex-direction: row;
+    }
+    .navbar ul {
+        flex-direction: row;
+        padding-top: 0.5rem;
+    }
+    .navbar li {
+        padding: 0.5rem 0;
+    }
+}
+
+.navbar ul li:first-child {
+    margin-right: auto;
+}
+
+.navbar ul li:nth-child(2) a {
+    display: flex;
+    align-items: center;
+}
