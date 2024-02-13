@@ -20,7 +20,7 @@ body {
     display: none;
     position: absolute;
     background-color: #f9f9f9;
-    min-width:160px;
+    min-width: 160px;
     font-size: 18px; /* Increase font size */
     padding: 15px;
 }
