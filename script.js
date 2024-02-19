@@ -1,3 +1,8 @@
+// Initial render
+document.addEventListener("DOMContentLoaded", function() {
+    renderStudents(currentPage);
+});
+
 function openTab(evt, tabName) {
     // Declare all variables
     var i, tabcontent, tablinks;
@@ -15,14 +20,19 @@ function openTab(evt, tabName) {
     }
 
     // Show the current tab, and add an "active" class to the link that opened the tab
-    document.getElementById(tabName).style.display = "block";
+    document.getElementById(tabName).style.display = "grid";
     evt.currentTarget.className += " active";
 }
 
 
 var studentsData = [
-    { group: "A", name: "John", gender: "Male", birthday: "2000-01-01", status: "Active" },
-    { group: "B", name: "Jane", gender: "Female", birthday: "2000-02-02", status: "Inactive" },
+    { group: "A", name: "Sofiyka Yaroshovych", gender: "Female", birthday: "2000-01-01", status: "Active" },
+    { group: "B", name: "Nazik Nafta", gender: "Male", birthday: "2000-02-02", status: "Inactive" },
+    { group: "B", name: "Fitia Boem", gender: "Male", birthday: "2000-02-02", status: "Active" },
+    { group: "B", name: "Yurchyk Starosta", gender: "Male", birthday: "2000-02-02", status: "Inactive" },
+    { group: "B", name: "Pes Patron", gender: "Male", birthday: "2000-02-02", status: "Inactive" },
+    { group: "B", name: "Max sah sakh sahk", gender: "Male", birthday: "2000-02-02", status: "Active" },
+    { group: "B", name: "Asiiiiykka", gender: "Male", birthday: "2000-02-02", status: "Inactive" },
     // Add more data here
 ];
 
@@ -44,15 +54,34 @@ function renderStudents(page) {
         row.insertCell(2).textContent = student.name;
         row.insertCell(3).textContent = student.gender;
         row.insertCell(4).textContent = student.birthday;
-        row.insertCell(5).textContent = student.status;
+
+        var statusCell = row.insertCell(5);
+        var statusIndicator = document.createElement("span");
+        statusIndicator.className = student.status === "Active" ? "status-active" : "status-inactive";
+        statusIndicator.title = student.status;
+        statusCell.appendChild(statusIndicator);
+
+        var optionsCell = row.insertCell(6);
         var deleteButton = document.createElement("button");
-        deleteButton.textContent = "Delete";
+        deleteButton.innerHTML = '<img src="assets/delete_icon.svg" alt="Delete Icon" style="width: 16px; height: 16px;">';
         deleteButton.onclick = function() {
-            deleteStudent(index + startIndex); // Pass the actual index in studentsData
+            deleteStudent(index + startIndex);
         };
-        var cell = row.insertCell(6);
-        cell.appendChild(deleteButton);
+        var editButton = document.createElement("button");
+        editButton.innerHTML = '<img src="assets/edit_icon.svg" alt="Edit Icon" style="width: 16px; height: 16px;">';
+        editButton.onclick = function() {
+            editStudent(index + startIndex);
+        };
+        var spacer = document.createElement("span");
+        spacer.style.marginRight = "5px";
+
+        optionsCell.appendChild(deleteButton);
+        optionsCell.appendChild(spacer);
+        optionsCell.appendChild(editButton);
     });
+
+
+
 }
 
 function createStudent() {
@@ -82,6 +111,58 @@ function deleteStudent(index) {
     renderStudents(currentPage);
 }
 
+function editStudent(index) {
+    currentEditIndex = index;
+    var student = studentsData[index];
+    document.getElementById('edit-group').value = student.group;
+    var nameParts = student.name.split(' ');
+    document.getElementById('edit-fname').value = nameParts[0];
+    document.getElementById('edit-lname').value = nameParts.slice(1).join(' ');
+    document.getElementById('edit-gender').value = student.gender;
+    document.getElementById('edit-bday').value = student.birthday;
+
+    OpenEditStudentModal();
+}
+
+
+function OpenEditStudentModal() {
+    var editModal = document.getElementById("editModal");
+    editModal.style.display = "block";
+}
+
+function CloseEditStudentModal() {
+    var editModal = document.getElementById("editModal");
+    editModal.style.display = "none";
+}
+
+function updateStudent() {
+    var group = document.getElementById('edit-group').value;
+    var fname = document.getElementById('edit-fname').value;
+    var lname = document.getElementById('edit-lname').value;
+    var gender = document.getElementById('edit-gender').value;
+    var bday = document.getElementById('edit-bday').value;
+
+    var editedStudent = {
+        group: group,
+        name: fname + ' ' + lname,
+        gender: gender,
+        birthday: bday,
+        status: "Active" // Assuming status is not editable in the modal
+    };
+
+    studentsData[currentEditIndex] = editedStudent; // Assuming currentEditIndex is the index of the student being edited
+    renderStudents(currentPage);
+    CloseEditStudentModal();
+}
+
+
+
+// function editStudent(index) {
+//     console.log("Editing student at index:", index);
+// }
+
+
+
 function previousPage() {
     if (currentPage > 1) {
         currentPage--;
@@ -96,9 +177,3 @@ function nextPage() {
         renderStudents(currentPage);
     }
 }
-
-// Initial render
-document.addEventListener("DOMContentLoaded", function() {
-    renderStudents(currentPage);
-});
-

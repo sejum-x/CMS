@@ -63,17 +63,45 @@
     opacity: 1;
 }
 
-@media screen and (min-width: 540px) {
-    .backward {
-        order: 1;
+.status-active,
+.status-inactive {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-left: 5px;
+}
+
+.status-active {
+    background-color: green; /* Зелений колір для активного статусу */
+}
+
+.status-inactive {
+    background-color: gray; /* Сірий колір для неактивного статусу */
+}
+
+@media screen and (max-width: 600px) {
+    #Students th:nth-child(6),
+    #Students td:nth-child(6) {
+        display: none;
     }
 
-    .page-numbers {
-        order: 2;
-        margin-top: 0;
+    #Students th:nth-child(4),
+    #Students td:nth-child(4) {
+        display: none;
     }
 
-    .forward {
-        order: 3;
+    #Students button {
+        padding: 3px 6px; /* Змінено padding на 3px висота і 6px ширина */
+        cursor: pointer;
+        border: none;
+        background-color: #4caf50;
+        color: white;
+        border-radius: 4px;
+    }
+
+    #Students button img {
+        width: 10px; /* Змінено ширину зображення на 10px */
+        height: 10px; /* Змінено висоту зображення на 10px */
     }
 }

@@ -4,7 +4,7 @@
     justify-content: space-between; /* Рівномірно розподілити простір між елементами */
     align-items: center; /* Вирівняти елементи по вертикалі */
     padding: 1rem 2rem;
-    background: #9b9b9b;
+    background: linear-gradient(0.25turn, #a4b2dd, #71dfce);
     margin: 0;
     height: 50px;
 }
@@ -27,6 +27,13 @@
     text-decoration: none;
     color: #ffffff
 }
+
+.cell{
+    width: 20vh;
+}
+
+
+
 
 @media only screen and (max-width: 600px) {
     .navbar {

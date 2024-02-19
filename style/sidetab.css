@@ -1,49 +1,69 @@
 /*VerticalTabMenu*/
-* {box-sizing: border-box}
+.tabandcontent{
+    display: flex;
+    flex-flow: row wrap;
+}
 
 /* Style the tab */
 .tab {
-    float: left;
-    width: 20%;
-    height: auto;
-    padding: 0;
-    margin: 0;
+    display: flex;
+    flex-flow: column wrap;
+    width: 20vh;
 }
 
 /* Style the buttons that are used to open the tab content */
 .tab button {
-    display: block;
-    background-color: inherit;
+
     color: black;
-    padding: 15px 90px;
-    width: 100%;
+    padding: 15px 20px;
     border: none;
     outline: none;
     text-align: left;
+    font-size: 20px;
     cursor: pointer;
     transition: 0.3s;
 }
 
-/* Change background color of buttons on hover */
 .tab button:hover {
     font-weight: bold;
+    background: linear-gradient(0.25turn, rgba(164, 178, 221, 0.5), rgba(156, 184, 218, 0.5));
 }
-/* Create an active/current "tab button" class */
 .tab button.active {
     font-weight: bold;
+    background: linear-gradient(0.25turn, rgba(164, 178, 221, 0.5), rgba(156, 184, 218, 0.5));
 }
 
 /* Style the tab content */
 .tabcontent {
-    float: left;
-    padding: 0px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 80%;
-    border: none;
     height: max-content;
+    border: none;
     display: none;
-    margin: 0;
 }
 
-.tabcontent:first-child {
-    display: block;
+@media only screen and (max-width: 800px) {
+    .tab{
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center; /* Вирівняти елементи по вертикалі */
+        width: auto;
+    }
+
+    .tab button{
+        width: 33%;
+        padding: 15px 15px;
+        text-align: center;
+    }
+
+    .tabcontent{
+        width: 100%;
+    }
+
+    .tabandcontent{
+        flex-direction: column;
+    }
 }
