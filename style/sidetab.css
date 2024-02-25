@@ -1,21 +1,19 @@
-/*VerticalTabMenu*/
 .tabandcontent{
     display: flex;
     flex-flow: row wrap;
+    margin-top: 82px;
 }
 
-/* Style the tab */
 .tab {
     display: flex;
     flex-flow: column wrap;
     width: 20vh;
 }
 
-/* Style the buttons that are used to open the tab content */
 .tab button {
-
     color: black;
     padding: 15px 20px;
+    background: #dee3e8;
     border: none;
     outline: none;
     text-align: left;
@@ -25,24 +23,25 @@
 }
 
 .tab button:hover {
+    color: white;
     font-weight: bold;
-    background: linear-gradient(0.25turn, rgba(164, 178, 221, 0.5), rgba(156, 184, 218, 0.5));
+    background: #667e93;
 }
 .tab button.active {
+    color: white;
     font-weight: bold;
-    background: linear-gradient(0.25turn, rgba(164, 178, 221, 0.5), rgba(156, 184, 218, 0.5));
+    background: #3b4854;
 }
 
-/* Style the tab content */
 .tabcontent {
-    display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 80%;
     height: max-content;
     border: none;
     display: none;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 @media only screen and (max-width: 800px) {

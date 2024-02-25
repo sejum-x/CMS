@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Your meta description here.">
     <title>CMS</title>
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="style/navbar.css">
@@ -11,7 +12,7 @@
     <link rel="stylesheet" href="style/studenttable.css">
     <link rel="stylesheet" href="style/modal.css">
 
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
     <script src="drag.js" defer></script>
     <script src="todo.js" defer></script>
 </head>
@@ -22,7 +23,7 @@
     <ul>
         <li class='dropdown' id="notificationsDropdown">
             <a href="#">
-                <svg class="feather-bell" fill="none" height="24" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                <img src='assets/bell_icon_white.svg' alt='bell' height='26' width='26' id="notificationBell">
             </a>
             <div class='dropdown-content' id="notificationsContent">
                 <div class="notification">Notification 1</div>
@@ -32,10 +33,10 @@
         </li>
 
         <li class='dropdown'><a href="#">
-            <img src='assets/user_icon.svg' alt='SVG Image' height='26' width='26'> Ivan Franchuk
+            <img src='assets/user_icon_white.svg' alt='user' height='26' width='26'> Ivan Franchuk
         </a>
             <div class='dropdown-content'>
-                <a href='#' >Profile</a>
+                <a href='https://www.linkedin.com/in/ivan-franchuk-295385250/' >Profile</a>
                 <a href='#'>Logout</a>
             </div>
         </li>
@@ -55,12 +56,10 @@
 </main>
 
 <main id="Students" class="tabcontent">
-    <h3>Students</h3>
-    <button class="AddStudentBt" onclick="OpenAddStudentModal()">+ Add</button>
+
 
     <!-- The Modal -->
     <div id="addModal" class="modal">
-        <!-- Modal content -->
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close">×</span>
@@ -70,9 +69,16 @@
                 <div class="input-group">
                     <label for="group">Group:</label>
                     <select id="group" name="group">
-                        <option value="">Select Group</option>
-                        <!-- Add group options here -->
+                        <option value="PZ-21">PZ-21</option>
+                        <option value="PZ-22">PZ-22</option>
+                        <option value="PZ-23">PZ-23</option>
+                        <option value="PZ-24">PZ-24</option>
+                        <option value="PZ-25">PZ-25</option>
+                        <option value="PZ-26">PZ-26</option>
+                        <option value="PZ-27">PZ-27</option>
+                        <option value="PZ-28">PZ-28</option>
                     </select>
+
                 </div>
 
                 <div class="input-group">
@@ -88,9 +94,10 @@
                 <div class="input-group">
                     <label for="gender">Gender:</label>
                     <select id="gender" name="gender">
-                        <option value="">Select Gender</option>
-                        <!-- Add gender options here -->
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
                     </select>
+
                 </div>
 
                 <div class="input-group">
@@ -100,15 +107,14 @@
 
             </div>
             <div class="modal-footer">
-                <button  onclick="CloseAddStudentModal()">Cancel</button>
-                <button onclick="createStudent()">Create</button>
+                <button  onclick="CloseAddStudentModal()" class="cancelStudentBt">Cancel</button>
+                <button onclick="createStudent()" class="confirmStudentBt">Create</button>
             </div>
         </div>
     </div>
 
     <!-- The Edit Modal -->
     <div id="editModal" class="modal">
-        <!-- Modal content -->
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close">&times;</span>
@@ -118,8 +124,14 @@
                 <div class="input-group">
                     <label for="edit-group">Group:</label>
                     <select id="edit-group" name="edit-group">
-                        <option value="">Select Group</option>
-                        <!-- Add group options here -->
+                            <option value="PZ-21">PZ-21</option>
+                            <option value="PZ-22">PZ-22</option>
+                            <option value="PZ-23">PZ-23</option>
+                            <option value="PZ-24">PZ-24</option>
+                            <option value="PZ-25">PZ-25</option>
+                            <option value="PZ-26">PZ-26</option>
+                            <option value="PZ-27">PZ-27</option>
+                            <option value="PZ-28">PZ-28</option>
                     </select>
                 </div>
 
@@ -137,7 +149,8 @@
                     <label for="edit-gender">Gender:</label>
                     <select id="edit-gender" name="edit-gender">
                         <option value="">Select Gender</option>
-                        <!-- Add gender options here -->
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
                     </select>
                 </div>
 
@@ -147,11 +160,29 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button  onclick="CloseEditStudentModal()">Cancel</button>
-                <button onclick="updateStudent()">Update</button>
+                <button  onclick="CloseEditStudentModal()" class="cancelStudentBt">Cancel</button>
+                <button onclick="updateStudent()" class="confirmStudentBt">Update</button>
             </div>
         </div>
     </div>
+
+    <!-- The Delete Confirmation Modal -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>Confirm Delete</h2>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this student?</p>
+            </div>
+            <div class="modal-footer">
+                <button onclick="CloseDeleteConfirmationModal()" class="cancelStudentBt">Cancel</button>
+                <button onclick="confirmDeleteStudent()" class="confirmStudentBt">Delete</button>
+            </div>
+        </div>
+    </div>
+
 
 
     <div id="tableContainer">
@@ -168,15 +199,15 @@
             </tr>
             </thead>
             <tbody id="studentsTableBody">
-            <!-- Тут будуть додаватися рядки з даними -->
             </tbody>
         </table>
     </div>
 
+    <button class="AddStudentBt" onclick="OpenAddStudentModal()">+ Add</button>
+
     <div class="pagination">
         <button onclick="previousPage()" class="backward" id="prev">Previous</button>
         <button onclick="nextPage()" class="forward" id="next">Next</button>
-        <div class="page-numbers" id="pageNumbers"></div>
     </div>
 </main>
 
@@ -218,21 +249,7 @@
 
 
 <script>
-    var modal = document.getElementById("addModal");
-    var closeButton = modal.querySelector(".close");
-    function OpenAddStudentModal() {
-        modal.style.display = "block";
-    }
-    function CloseAddStudentModal() {
-        modal.style.display = "none";
-    }
-    closeButton.addEventListener("click", CloseAddStudentModal);
 
-    window.addEventListener("click", function(event) {
-        if (event.target === modal) {
-            CloseAddStudentModal();
-        }
-    });
 </script>
 </body>
 </html>

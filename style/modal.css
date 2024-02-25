@@ -40,16 +40,14 @@
     to {top: 50%; opacity: 1}
 }
 
-/* Modal Header */
 .modal-header {
-    padding: 2px 16px;
-    background-color: #5cb85c;
+    padding: 8px 16px;
+    background: #3b4854;
     color: white;
 }
 
-/* Modal Body */
 .modal-body {
-    padding: 2px 16px;
+    padding: 20px 16px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -68,8 +66,8 @@
 
 /* Modal Footer */
 .modal-footer {
-    padding: 2px 16px;
-    background-color: #5cb85c;
+    padding: 8px 16px;
+    background: #3b4854;
     color: white;
 }
 

@@ -1,37 +1,16 @@
 body {
     font-family: Arial, Tahoma, Serif;
     color: #263238;
+    background: #f6f8f9;
 }
 
 .AddStudentBt{
-    margin: 25px 5px 25px 5px;
+    margin: 10px 5px 20px 5px;
     float: right;
+    background-color: #73c2ba;
 }
 
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
 
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #71dece;
-    min-width: 160px;
-    font-size: 18px; /* Increase font size */
-    padding: 15px;
-}
-
-.notification {
-    padding: 5px;
-    margin-bottom: 5px;
-    border: 1px solid #ddd;
-    background-color: #fff;
-}
-
-.dropdown:hover .dropdown-content {
-    display:block;
-}
 
 
 
@@ -145,3 +124,6 @@ body {
     background: rgb(50, 50, 50);
     color: white;
 }
+
+
+

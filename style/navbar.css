@@ -1,24 +1,26 @@
 /*NavBar*/
 .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
     display: flex;
-    justify-content: space-between; /* Рівномірно розподілити простір між елементами */
-    align-items: center; /* Вирівняти елементи по вертикалі */
+    justify-content: space-between;
+    align-items: center;
     padding: 1rem 2rem;
-    background: linear-gradient(0.25turn, #a4b2dd, #71dfce);
+    background: linear-gradient(0.25turn, #3b4854, #3b4854);
     margin: 0;
     height: 50px;
 }
-
 .navbar h2{
     color: #ffffff;
 }
-
 .navbar ul {
     display: flex;
     list-style: none;
     padding: 0;
 }
-
 .navbar li {
     padding-left: 1rem;
 }
@@ -28,24 +30,29 @@
     color: #ffffff
 }
 
-.cell{
-    width: 20vh;
+/*.dropdown {
+    position: relative;
+    display: inline-block;
+}*/
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #667e93;
+    min-width: 160px;
+    font-size: 18px;
+    padding: 15px;
 }
 
+.notification {
+    padding: 5px;
+    margin-bottom: 5px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
 
-
-
-@media only screen and (max-width: 600px) {
-    .navbar {
-        flex-direction: row;
-    }
-    .navbar ul {
-        flex-direction: row;
-        padding-top: 0.5rem;
-    }
-    .navbar li {
-        padding: 0.5rem 0;
-    }
+.dropdown:hover .dropdown-content {
+    display:block;
 }
 
 .navbar ul li:first-child {
@@ -56,3 +63,46 @@
     display: flex;
     align-items: center;
 }
+
+.notification {
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    color: #263238;
+}
+
+.notification p {
+    margin: 0;
+    font-weight: bold;
+}
+
+.notification-sender {
+    font-style: italic;
+    margin-top: 5px;
+}
+
+@keyframes swing {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(15deg); }
+    100% { transform: rotate(-15deg); }
+}
+
+#notificationsDropdown:hover #notificationBell{
+    animation: swing 0.5s ease-in-out infinite;
+}
+
+@media only screen and (max-width: 600px) {
+    .navbar {
+        flex-direction: row;
+        padding: 1rem 1rem;
+    }
+    .navbar ul {
+        flex-direction: row;
+        padding-top: 0.5rem;
+    }
+    .navbar li {
+        padding: 0.5rem 0;
+    }
+}
+

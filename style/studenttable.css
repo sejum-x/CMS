@@ -1,5 +1,6 @@
 /*studentsTable*/
 #Students table {
+    margin-top: 10px;
     width: 100%;
     border-collapse: collapse;
 }
@@ -12,11 +13,11 @@
 }
 
 #Students th {
-    background-color: #f2f2f2;
+    background-color: #dee3e8;
 }
 
 #Students tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: #dee3e8;
 }
 
 #Students tr:hover {
@@ -27,27 +28,58 @@
     padding: 5px 10px;
     cursor: pointer;
     border: none;
-    background-color: #4caf50;
     color: white;
     border-radius: 4px;
 }
 
-#Students button:hover {
-    background-color: #45a049;
+.cancelStudentBt{
+    background-color: #db5c5c;
 }
+
+.confirmStudentBt, .forward, .backward{
+    background-color: #62b2aa;
+}
+
+
+.backward {
+    margin-right: 10px; /* Відступ справа від кнопки */
+}
+
+#Students button:hover {
+    opacity: 0.8;
+}
+
+.delete-button {
+    background-color: #db4d4d; /* Червоний колір для кнопки видалення */
+    color: white; /* Білий колір тексту */
+    border: none; /* Відсутність рамки */
+    padding: 5px 10px; /* Відступи */
+    cursor: pointer; /* Змінити курсор при наведенні */
+}
+
+.edit-button {
+    background-color: #729db7; /* Фіолетовий колір для кнопки редагування */
+    color: white; /* Білий колір тексту */
+    border: none; /* Відсутність рамки */
+    padding: 5px 10px; /* Відступи */
+    cursor: pointer; /* Змінити курсор при наведенні */
+}
+
+/* Зміна кольору кнопок при наведенні */
+.delete-button:hover,
+.edit-button:hover {
+    opacity: 0.8; /* Зменшення прозорості */
+}
+
 
 /*pagination*/
 .pagination {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 1em;
     flex-wrap: wrap;
 }
 
-.pagination button{
-    margin-top: 25px;
-}
 
 .page-numbers {
     margin: 1em 1em 0;
@@ -73,35 +105,37 @@
 }
 
 .status-active {
-    background-color: green; /* Зелений колір для активного статусу */
+    background-color: #62b2aa; /* Зелений колір для активного статусу */
 }
 
 .status-inactive {
     background-color: gray; /* Сірий колір для неактивного статусу */
 }
 
-@media screen and (max-width: 600px) {
-    #Students th:nth-child(6),
-    #Students td:nth-child(6) {
-        display: none;
-    }
 
-    #Students th:nth-child(4),
-    #Students td:nth-child(4) {
-        display: none;
-    }
+.cell{
+    width: 20vh;
+}
+
+@media screen and (max-width: 600px) {
 
     #Students button {
-        padding: 3px 6px; /* Змінено padding на 3px висота і 6px ширина */
+        padding: 3px 5px; /* Змінено padding на 3px висота і 6px ширина */
         cursor: pointer;
         border: none;
-        background-color: #4caf50;
-        color: white;
         border-radius: 4px;
     }
 
+    #studentsTable .cell{
+
+    }
+
+    #studentsTable td {
+        font-size: 12px;
+    }
+
     #Students button img {
-        width: 10px; /* Змінено ширину зображення на 10px */
-        height: 10px; /* Змінено висоту зображення на 10px */
+        width: 4px;
+        height: 4px;
     }
 }
