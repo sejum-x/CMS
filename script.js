@@ -1,45 +1,39 @@
-// Initial render
-document.addEventListener("DOMContentLoaded", function() {
+$(document).ready(function() {
     renderStudents(currentPage);
 });
 
 function openTab(evt, tabName) {
-    var i, tabcontent, tablinks;
+    $(".tabcontent").hide();
+    $(".tablinks").removeClass("active");
 
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-
-    document.getElementById(tabName).style.display = "grid";
-    evt.currentTarget.className += " active";
+    $("#" + tabName).show();
+    $(evt.currentTarget).addClass("active");
 }
 
+class Student {
+    constructor(group, name, gender, birthday, status = "Active") {
+        this.group = group;
+        this.name = name;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.status = status;
+    }
+}
 
 var studentsData = [
-    { group: "PZ-28", name: "Sofiyka Yaroshovych", gender: "Female", birthday: "2000-01-01", status: "Active" },
-    { group: "PZ-28", name: "Nazik Nafta", gender: "Male", birthday: "2000-02-02", status: "Inactive" },
-    { group: "PZ-28", name: "Fitia Boem", gender: "Male", birthday: "2000-02-02", status: "Active" },
-    { group: "PZ-28", name: "Yurchyk Starosta", gender: "Male", birthday: "2000-02-02", status: "Inactive" },
-    { group: "PZ-28", name: "Pes Patron", gender: "Male", birthday: "2000-02-02", status: "Inactive" },
-    { group: "PZ-28", name: "Max sah sakh sahk", gender: "Male", birthday: "2000-02-02", status: "Active" },
-    { group: "PZ-28", name: "Asiiiiykka", gender: "Male", birthday: "2000-02-02", status: "Inactive" },
+    new Student("PZ-28", "Sofiyka Yaroshovych", "Female", "2005-09-30"),
+    new Student("PZ-28", "Nazik Nafta", "Male", "2000-02-02", "Inactive"),
 ];
 
 var currentPage = 1;
 var studentsPerPage = 10;
 
 function createStudent() {
-    var group = document.getElementById('group').value;
-    var fname = document.getElementById('fname').value;
-    var lname = document.getElementById('lname').value;
-    var gender = document.getElementById('gender').value;
-    var bday = document.getElementById('bday').value;
+    var group = $('#group').val();
+    var fname = $('#fname').val();
+    var lname = $('#lname').val();
+    var gender = $('#gender').val();
+    var bday = $('#bday').val();
 
     if (!group || !fname || !lname || !gender || !bday) {
         alert('Please fill in all fields.');
@@ -50,15 +44,28 @@ function createStudent() {
 }
 
 function addStudent(group, name, gender, birthday) {
-    var newStudent = {
-        group: group,
-        name: name,
-        gender: gender,
-        birthday: birthday,
-        status: "Active"
-    };
+    var newStudent = new Student(group, name, gender, birthday);
     studentsData.push(newStudent);
+    sendStudentDataToServer(newStudent);
     renderStudents(currentPage);
+}
+
+function sendStudentDataToServer(student) {
+    var url = 'http://localhost:3000/api/students';
+    var data = JSON.stringify(student);
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: data
+    })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 }
 
 function renderStudents(page) {
@@ -66,76 +73,117 @@ function renderStudents(page) {
     var endIndex = startIndex + studentsPerPage;
     var students = studentsData.slice(startIndex, endIndex);
 
-    var tableBody = document.getElementById("studentsTableBody");
-    tableBody.innerHTML = '';
+    var tableBody = $('#studentsTableBody');
+    tableBody.empty();
 
     students.forEach(function(student, index) {
-        var row = tableBody.insertRow();
-        row.insertCell(0).innerHTML = '<input type="checkbox">';
-        row.insertCell(1).textContent = student.group;
-        row.insertCell(2).textContent = student.name;
-        row.insertCell(3).textContent = student.gender;
-        row.insertCell(4).textContent = student.birthday;
+        var row = $('<tr></tr>');
+        row.append('<td><input type="checkbox"></td>');
+        row.append('<td>' + student.group + '</td>');
+        row.append('<td>' + student.name + '</td>');
+        row.append('<td>' + student.gender + '</td>');
+        row.append('<td>' + student.birthday + '</td>');
 
-        var statusCell = row.insertCell(5);
-        var statusIndicator = document.createElement("span");
-        statusIndicator.className = student.status === "Active" ? "status-active" : "status-inactive";
-        statusIndicator.title = student.status;
-        statusCell.appendChild(statusIndicator);
+        var statusCell = $('<td></td>');
+        var statusIndicator = $('<span></span>');
+        statusIndicator.addClass(student.status === "Active" ? "status-active" : "status-inactive");
+        statusIndicator.attr('title', student.status);
+        statusCell.append(statusIndicator);
 
-        var optionsCell = row.insertCell(6);
-        var deleteButton = document.createElement("button");
-        deleteButton.innerHTML = '<img src="assets/delete_icon_white.svg" alt="Delete Icon" style="width: 16px; height: 16px;">';
-        deleteButton.className = "delete-button";
-        deleteButton.onclick = function() {
+        var optionsCell = $('<td></td>');
+        var deleteButton = $('<button><img src="assets/delete_icon_white.svg" alt="Delete Icon" style="width: 16px; height: 16px;"></button>');
+        deleteButton.addClass("delete-button");
+        deleteButton.on('click', function() {
             deleteStudent(index + startIndex);
-        };
-        var editButton = document.createElement("button");
-        editButton.innerHTML = '<img src="assets/edit_icon_white.svg" alt="Edit Icon" style="width: 16px; height: 16px;">';
-        editButton.className = "edit-button";
-        editButton.onclick = function() {
-            editStudent(index + startIndex);
-        };
-        var spacer = document.createElement("span");
-        spacer.style.marginRight = "5px";
+        });
+        var editButton = $('<button><img src="assets/edit_icon_white.svg" alt="Edit Icon" style="width: 16px; height: 16px;"></button>');
+        editButton.addClass("edit-button");
+        // Update the edit button click handler to pass the index to openEditStudentModal
+        editButton.on('click', function() {
+            var index = $(this).parent().parent().index();
+            openEditStudentModal(index);
+        });
+        var spacer = $('<span></span>');
+        spacer.css('margin-right', '5px');
 
-        optionsCell.appendChild(deleteButton);
-        optionsCell.appendChild(spacer);
-        optionsCell.appendChild(editButton);
+        optionsCell.append(deleteButton);
+        optionsCell.append(spacer);
+        optionsCell.append(editButton);
+
+        row.append(statusCell);
+        row.append(optionsCell);
+
+        tableBody.append(row);
     });
-    updateAllCheckboxes(selectAllCheckbox.checked);
+    updateAllCheckboxes(selectAllCheckbox.prop('checked'));
+}
+
+var modal = $('#studentModal');
+var closeButton = modal.find(".close");
+
+function openAddStudentModal() {
+    var modal = $('#studentModal');
+    modal.attr('data-mode', 'add');
+    $('#modalTitle').text('Add Student');
+    $('.confirmStudentBt').text('Create');
+    modal.css('display', 'block');
+}
+
+function openEditStudentModal(index) {
+    var student = studentsData[index];
+    currentEditIndex = index; // Set the currentEditIndex here
+
+    var modal = $('#studentModal');
+    modal.attr('data-mode', 'edit');
+    $('#modalTitle').text('Edit Student');
+    $('.confirmStudentBt').text('Update');
+
+    // Populate the fields with the student data
+    $('#group').val(student.group);
+    var nameParts = student.name.split(' ');
+    $('#fname').val(nameParts[0]);
+    $('#lname').val(nameParts.slice(1).join(' '));
+    $('#gender').val(student.gender);
+    $('#bday').val(student.birthday);
+
+    modal.css('display', 'block');
+}
+
+function submitStudent() {
+    var modal = $('#studentModal');
+    var mode = modal.attr('data-mode');
+    if (mode === 'add') {
+        createStudent();
+    } else if (mode === 'edit') {
+        updateStudent();
+    }
 }
 
 
 
-var modal = document.getElementById("addModal");
-var closeButton = modal.querySelector(".close");
-function OpenAddStudentModal() {
-    modal.style.display = "block";
+function closeStudentModal() {
+    modal.fadeOut(400, function() {
+        // Clear input fields
+        modal.find('input[type="text"], input[type="date"], select').val('');
+    });
 }
-function CloseAddStudentModal() {
-    modal.style.display = "none";
-}
-closeButton.addEventListener("click", CloseAddStudentModal);
 
-window.addEventListener("click", function(event) {
-    if (event.target === modal) {
-        CloseAddStudentModal();
+closeButton.on('click', closeStudentModal);
+
+$(window).on('click', function(event) {
+    if (event.target === modal.get(0)) {
+        closeStudentModal();
     }
 });
 
-var selectAllCheckbox = document.querySelector("#studentsTable thead input[type='checkbox']");
-selectAllCheckbox.addEventListener('change', function() {
-    updateAllCheckboxes(selectAllCheckbox.checked);
+var selectAllCheckbox = $('#studentsTable thead input[type="checkbox"]');
+selectAllCheckbox.on('change', function() {
+    updateAllCheckboxes(selectAllCheckbox.prop('checked'));
 });
 function updateAllCheckboxes(state) {
-    var checkboxes = document.querySelectorAll("#studentsTable tbody input[type='checkbox']");
-    checkboxes.forEach(function(checkbox) {
-        checkbox.checked = state;
-    });
+    var checkboxes = $('#studentsTable tbody input[type="checkbox"]');
+    checkboxes.prop('checked', state);
 }
-
-
 
 var currentDeleteIndex;
 function deleteStudent(index) {
@@ -148,71 +196,34 @@ function confirmDeleteStudent() {
     CloseDeleteConfirmationModal();
 }
 function OpenDeleteConfirmationModal() {
-    var deleteModal = document.getElementById("deleteModal");
-    deleteModal.style.display = "block";
+    var deleteModal = $('#deleteModal');
+    deleteModal.css('display', 'block');
 }
 function CloseDeleteConfirmationModal() {
-    var deleteModal = document.getElementById("deleteModal");
-    deleteModal.style.display = "none";
+    var deleteModal = $('#deleteModal');
+    deleteModal.css('display', 'none');
 }
 
 
-function editStudent(index) {
-    currentEditIndex = index;
-    var student = studentsData[index];
-    document.getElementById('edit-group').value = student.group;
-    var nameParts = student.name.split(' ');
-    document.getElementById('edit-fname').value = nameParts[0];
-    document.getElementById('edit-lname').value = nameParts.slice(1).join(' ');
-    document.getElementById('edit-gender').value = student.gender;
-    document.getElementById('edit-bday').value = student.birthday;
-
-    OpenEditStudentModal();
-}
-function OpenEditStudentModal() {
-    var editModal = document.getElementById("editModal");
-    editModal.style.display = "block";
-}
-
-function CloseEditStudentModal() {
-    var editModal = document.getElementById("editModal");
-    editModal.style.display = "none";
-}
-
-var EditModal = document.getElementById("editModal");
-var closeButton = EditModal.querySelector(".close");
-closeButton.addEventListener("click", CloseEditStudentModal);
-
-window.addEventListener("click", function(event) {
-    if (event.target === editModal) {
-        CloseEditStudentModal();
-    }
-});
 
 function updateStudent() {
-    var group = document.getElementById('edit-group').value;
-    var fname = document.getElementById('edit-fname').value;
-    var lname = document.getElementById('edit-lname').value;
-    var gender = document.getElementById('edit-gender').value;
-    var bday = document.getElementById('edit-bday').value;
+    var group = $('#group').val();
+    var fname = $('#fname').val();
+    var lname = $('#lname').val();
+    var gender = $('#gender').val();
+    var bday = $('#bday').val();
 
     if (!group || !fname || !lname || !gender || !bday) {
         alert('Please fill in all fields.');
         return;
     }
 
-    var editedStudent = {
-        group: group,
-        name: fname + ' ' + lname,
-        gender: gender,
-        birthday: bday,
-        status: "Active" // not editable
-    };
-
-    studentsData[currentEditIndex] = editedStudent;
+    var updatedStudent = new Student(group, fname + ' ' + lname, gender, bday);
+    studentsData[currentEditIndex] = updatedStudent; // Update the studentsData array here
     renderStudents(currentPage);
-    CloseEditStudentModal();
+    closeStudentModal();
 }
+
 
 
 function previousPage() {
@@ -230,30 +241,30 @@ function nextPage() {
     }
 }
 
-
-window.addEventListener('resize', function() {
+$(window).on('resize', function() {
     if (window.innerWidth < 600) {
-        document.querySelector('#studentsTable th:nth-child(6)').textContent = 'S';
-        document.querySelector('#studentsTable th:nth-child(2)').textContent = 'G';
-        document.querySelector('#studentsTable th:nth-child(4)').textContent = 'G';
-        document.querySelectorAll('#studentsTable td:nth-child(4)').forEach(function(cell) {
-            if (cell.textContent.trim() === 'Male') {
-                cell.textContent = 'M';
-            } else if (cell.textContent.trim() === 'Female') {
-                cell.textContent = 'F';
+        $('#studentsTable th:nth-child(6)').text('S');
+        $('#studentsTable th:nth-child(2)').text('G');
+        $('#studentsTable th:nth-child(4)').text('G');
+        $('#studentsTable td:nth-child(4)').each(function() {
+            var cell = $(this);
+            if (cell.text().trim() === 'Male') {
+                cell.text('M');
+            } else if (cell.text().trim() === 'Female') {
+                cell.text('F');
             }
         });
     } else {
-        document.querySelector('#studentsTable th:nth-child(6)').textContent = 'Status';
-        document.querySelector('#studentsTable th:nth-child(4)').textContent = 'Gender';
-        document.querySelector('#studentsTable th:nth-child(2)').textContent = 'Group';
-        document.querySelectorAll('#studentsTable td:nth-child(4)').forEach(function(cell) {
-            if (cell.textContent.trim() === 'M') {
-                cell.textContent = 'Male';
-            } else if (cell.textContent.trim() === 'F') {
-                cell.textContent = 'Female';
+        $('#studentsTable th:nth-child(6)').text('Status');
+        $('#studentsTable th:nth-child(4)').text('Gender');
+        $('#studentsTable th:nth-child(2)').text('Group');
+        $('#studentsTable td:nth-child(4)').each(function() {
+            var cell = $(this);
+            if (cell.text().trim() === 'M') {
+                cell.text('Male');
+            } else if (cell.text().trim() === 'F') {
+                cell.text('Female');
             }
         });
     }
 });
-

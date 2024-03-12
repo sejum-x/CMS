@@ -1,27 +1,8 @@
-/*studentsTable*/
-#Students table {
-    margin-top: 10px;
-    width: 100%;
-    border-collapse: collapse;
-}
-
-#Students th,
 #Students td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
-}
-
-#Students th {
-    background-color: #dee3e8;
-}
-
-#Students tr:nth-child(even) {
-    background-color: #dee3e8;
-}
-
-#Students tr:hover {
-    background-color: #ddd;
+    vertical-align: middle;
 }
 
 #Students button {
@@ -42,7 +23,7 @@
 
 
 .backward {
-    margin-right: 10px; /* Відступ справа від кнопки */
+    margin-right: 10px;
 }
 
 #Students button:hover {
@@ -50,25 +31,24 @@
 }
 
 .delete-button {
-    background-color: #db4d4d; /* Червоний колір для кнопки видалення */
-    color: white; /* Білий колір тексту */
-    border: none; /* Відсутність рамки */
-    padding: 5px 10px; /* Відступи */
-    cursor: pointer; /* Змінити курсор при наведенні */
+    background-color: #db4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
 }
 
 .edit-button {
-    background-color: #729db7; /* Фіолетовий колір для кнопки редагування */
-    color: white; /* Білий колір тексту */
-    border: none; /* Відсутність рамки */
-    padding: 5px 10px; /* Відступи */
-    cursor: pointer; /* Змінити курсор при наведенні */
+    background-color: #729db7;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
 }
 
-/* Зміна кольору кнопок при наведенні */
 .delete-button:hover,
 .edit-button:hover {
-    opacity: 0.8; /* Зменшення прозорості */
+    opacity: 0.8;
 }
 
 
@@ -105,11 +85,11 @@
 }
 
 .status-active {
-    background-color: #62b2aa; /* Зелений колір для активного статусу */
+    background-color: #62b2aa;
 }
 
 .status-inactive {
-    background-color: gray; /* Сірий колір для неактивного статусу */
+    background-color: gray;
 }
 
 
@@ -120,7 +100,7 @@
 @media screen and (max-width: 600px) {
 
     #Students button {
-        padding: 3px 5px; /* Змінено padding на 3px висота і 6px ширина */
+        padding: 3px 5px;
         cursor: pointer;
         border: none;
         border-radius: 4px;

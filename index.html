@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Your meta description here.">
     <title>CMS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous" defer></script>
+
+    <!--script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous" defer></script-->
+    <script src="jquery-3.2.1.min.js" defer></script>
+
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="style/navbar.css">
     <link rel="stylesheet" href="style/sidetab.css">
@@ -55,15 +61,15 @@
     <p>Dashboard</p>
 </main>
 
-<main id="Students" class="tabcontent">
+<div id="Students" class="tabcontent">
 
 
     <!-- The Modal -->
-    <div id="addModal" class="modal">
+    <div id="studentModal" class="modal" data-mode="add">
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close">×</span>
-                <h2>Add Student</h2>
+                <h2 id="modalTitle">Add Student</h2>
             </div>
             <div class="modal-body">
                 <div class="input-group">
@@ -107,70 +113,15 @@
 
             </div>
             <div class="modal-footer">
-                <button  onclick="CloseAddStudentModal()" class="cancelStudentBt">Cancel</button>
-                <button onclick="createStudent()" class="confirmStudentBt">Create</button>
+                <button onclick="closeStudentModal()" class="cancelStudentBt">Cancel</button>
+                <button onclick="submitStudent()" class="confirmStudentBt">Create</button>
             </div>
         </div>
     </div>
-
-    <!-- The Edit Modal -->
-    <div id="editModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="close">&times;</span>
-                <h2>Edit Student</h2>
-            </div>
-            <div class="modal-body">
-                <div class="input-group">
-                    <label for="edit-group">Group:</label>
-                    <select id="edit-group" name="edit-group">
-                            <option value="PZ-21">PZ-21</option>
-                            <option value="PZ-22">PZ-22</option>
-                            <option value="PZ-23">PZ-23</option>
-                            <option value="PZ-24">PZ-24</option>
-                            <option value="PZ-25">PZ-25</option>
-                            <option value="PZ-26">PZ-26</option>
-                            <option value="PZ-27">PZ-27</option>
-                            <option value="PZ-28">PZ-28</option>
-                    </select>
-                </div>
-
-                <div class="input-group">
-                    <label for="edit-fname">First Name:</label>
-                    <input type="text" id="edit-fname" name="edit-fname">
-                </div>
-
-                <div class="input-group">
-                    <label for="edit-lname">Last Name:</label>
-                    <input type="text" id="edit-lname" name="edit-lname">
-                </div>
-
-                <div class="input-group">
-                    <label for="edit-gender">Gender:</label>
-                    <select id="edit-gender" name="edit-gender">
-                        <option value="">Select Gender</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                    </select>
-                </div>
-
-                <div class="input-group">
-                    <label for="edit-bday">Birthday:</label>
-                    <input type="date" id="edit-bday" name="edit-bday">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button  onclick="CloseEditStudentModal()" class="cancelStudentBt">Cancel</button>
-                <button onclick="updateStudent()" class="confirmStudentBt">Update</button>
-            </div>
-        </div>
-    </div>
-
     <!-- The Delete Confirmation Modal -->
     <div id="deleteModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <span class="close">&times;</span>
                 <h2>Confirm Delete</h2>
             </div>
             <div class="modal-body">
@@ -183,35 +134,32 @@
         </div>
     </div>
 
-
-
-    <div id="tableContainer">
-        <table id="studentsTable">
+    <div id="tableContainer" class="table-responsive-xxl">
+        <table id="studentsTable" class="table">
             <thead>
             <tr>
                 <th><input type="checkbox"></th>
-                <th class="cell">Group</th>
-                <th class="cell">Name</th>
-                <th class="cell">Gender</th>
-                <th class="cell">Birthday</th>
-                <th class="cell">Status</th>
-                <th class="cell">Options</th>
+                <th class="text-center">Group</th>
+                <th class="text-center">Name</th>
+                <th class="text-center">Gender</th>
+                <th class="text-center">Birthday</th>
+                <th class="text-center">Status</th>
+                <th class="text-center">Options</th>
             </tr>
             </thead>
-            <tbody id="studentsTableBody">
+            <tbody id="studentsTableBody" >
             </tbody>
         </table>
     </div>
 
-    <button class="AddStudentBt" onclick="OpenAddStudentModal()">+ Add</button>
+    <button class="AddStudentBt" onclick="openAddStudentModal()">+ Add</button>
 
     <div class="pagination">
         <button onclick="previousPage()" class="backward" id="prev">Previous</button>
         <button onclick="nextPage()" class="forward" id="next">Next</button>
     </div>
-</main>
 
-<main id="Tasks" class="tabcontent">
+<div id="Tasks" class="tabcontent">
     <h3>Tasks</h3>
     <div class="board">
         <form id="todo-form">
@@ -243,13 +191,9 @@
             </div>
         </div>
     </div>
-</main>
 
 </div>
-
-
-<script>
-
-</script>
+</div>
+</div>
 </body>
 </html>
