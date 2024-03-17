@@ -11,7 +11,10 @@ function openTab(evt, tabName) {
 }
 
 class Student {
+    static idCounter = 0;
+
     constructor(group, name, gender, birthday, status = "Active") {
+        this.id = Student.idCounter++;
         this.group = group;
         this.name = name;
         this.gender = gender;
@@ -51,8 +54,18 @@ function addStudent(group, name, gender, birthday) {
 }
 
 function sendStudentDataToServer(student) {
-    var url = 'http://localhost:3000/api/students';
-    var data = JSON.stringify(student);
+    var url = 'https://localhost:7123/EduHub';
+
+    var data = JSON.stringify({
+        Id: (student.id).toString(),
+        Group: student.group,
+        Name: student.name,
+        Gender: student.gender,
+        Birthday: student.birthday,
+        Status: student.status
+    });
+
+    console.log(data);
 
     fetch(url, {
         method: 'POST',
@@ -61,12 +74,10 @@ function sendStudentDataToServer(student) {
         },
         body: data
     })
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch((error) => {
-            console.error('Error:', error);
-        });
 }
+
+
+
 
 function renderStudents(page) {
     var startIndex = (page - 1) * studentsPerPage;
@@ -159,8 +170,6 @@ function submitStudent() {
     }
 }
 
-
-
 function closeStudentModal() {
     modal.fadeOut(400, function() {
         // Clear input fields
@@ -188,43 +197,21 @@ function updateAllCheckboxes(state) {
 var currentDeleteIndex;
 function deleteStudent(index) {
     currentDeleteIndex = index;
-    OpenDeleteConfirmationModal();
+    openDeleteConfirmationModal();
 }
 function confirmDeleteStudent() {
     studentsData.splice(currentDeleteIndex, 1);
     renderStudents(currentPage);
-    CloseDeleteConfirmationModal();
+    closeDeleteConfirmationModal();
 }
-function OpenDeleteConfirmationModal() {
+function openDeleteConfirmationModal() {
     var deleteModal = $('#deleteModal');
     deleteModal.css('display', 'block');
 }
-function CloseDeleteConfirmationModal() {
+function closeDeleteConfirmationModal() {
     var deleteModal = $('#deleteModal');
     deleteModal.css('display', 'none');
 }
-
-
-
-function updateStudent() {
-    var group = $('#group').val();
-    var fname = $('#fname').val();
-    var lname = $('#lname').val();
-    var gender = $('#gender').val();
-    var bday = $('#bday').val();
-
-    if (!group || !fname || !lname || !gender || !bday) {
-        alert('Please fill in all fields.');
-        return;
-    }
-
-    var updatedStudent = new Student(group, fname + ' ' + lname, gender, bday);
-    studentsData[currentEditIndex] = updatedStudent; // Update the studentsData array here
-    renderStudents(currentPage);
-    closeStudentModal();
-}
-
-
 
 function previousPage() {
     if (currentPage > 1) {
@@ -267,4 +254,43 @@ $(window).on('resize', function() {
             }
         });
     }
+});
+
+
+
+
+// Function to fetch all students
+function getAllStudents() {
+    var url = 'https://localhost:7123/EduHub';
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
+
+// Add click event listener to the button
+document.getElementById('getAllStudentsButton').addEventListener('click', getAllStudents);
+
+// Function to clear all students
+document.getElementById('clearStudentsButton').addEventListener('click', function() {
+    fetch('https://localhost:7123/EduHub/ClearAllStudents', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => {
+            if (response.ok) {
+                alert('All students have been cleared.');
+            } else {
+                alert('Failed to clear students.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while clearing students.');
+        });
 });

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--=============== REMIXICONS ===============-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css">
+
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="style/responsive_navbar.css">
+    <link rel="stylesheet" href="style/responsive_table.css">
+    <link rel="stylesheet" href="style/add_button.css">
+    <link rel="stylesheet" href="style/modal.css">
+    <link rel="stylesheet" href="style/students_tasks.css">
+
+
+    <script src="jquery-3.2.1.min.js" defer></script>
+    <script src="script.js" defer></script>
+    <script src="js/cashing.js" defer></script>
+
+    <title>CMS</title>
+</head>
+<body>
+<!--==================== HEADER ====================-->
+<header class="header" id="header">
+    <nav class="nav container">
+        <a href="#" class="nav__logo">EduHub</a>
+
+        <div class="nav__menu" id="nav-menu">
+            <ul class="nav__list">
+
+                <li class="nav__item">
+                    <a href="#" class="nav__link">Dashboard</a>
+                </li>
+
+                <li class="nav__item">
+                    <a href="#" class="nav__link">Students</a>
+                </li>
+
+                <li class="nav__item">
+                    <a href="#" class="nav__link">Tasks</a>
+                </li>
+            </ul>
+
+            <!-- Close button -->
+            <div class="nav__close" id="nav-close">
+                <i class="ri-close-line"></i>
+            </div>
+        </div>
+
+        <div class="nav__actions">
+            <!-- Search button -->
+            <i class="ri-search-line nav__search" id="search-btn"></i>
+
+            <!-- Search button -->
+            <i class="ri-message-line nav__message" id="message-btn"></i>
+
+            <!-- Login button -->
+            <i class="ri-user-line nav__login" id="login-btn"></i>
+
+            <!-- Toggle button -->
+            <div class="nav__toggle" id="nav-toggle">
+                <i class="ri-menu-line"></i>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!--==================== SEARCH ====================-->
+<div class="search" id="search">
+    <form action="" class="search__form">
+        <i class="ri-search-line search__icon"></i>
+        <input type="search" placeholder="What are you looking for?" class="search__input">
+    </form>
+
+    <i class="ri-close-line search__close" id="search-close"></i>
+</div>
+
+<!--==================== LOGIN ====================-->
+<div class="login" id="login">
+    <form action="" class="login__form">
+        <h2 class="login__title">Log In</h2>
+
+        <div class="login__group">
+            <div>
+                <label for="email" class="login__label">Email</label>
+                <input type="email" placeholder="Write your email" id="email" class="login__input">
+            </div>
+
+            <div>
+                <label for="password" class="login__label">Password</label>
+                <input type="password" placeholder="Enter your password" id="password" class="login__input">
+            </div>
+        </div>
+
+        <div>
+            <p class="login__signup">
+                You do not have an account? <a href="#">Sign up</a>
+            </p>
+
+            <a href="#" class="login__forgot">
+                You forgot your password
+            </a>
+
+            <button type="submit" class="login__button">Log In</button>
+        </div>
+    </form>
+
+    <i class="ri-close-line login__close" id="login-close"></i>
+</div>
+
+<!--==================== MAIN ====================-->
+
+<!-- The Modal -->
+<div id="studentModal" class="modal" data-mode="add">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close">×</span>
+            <h2 id="modalTitle">Add Student</h2>
+        </div>
+        <div class="modal-body">
+            <div class="input-group">
+                <label for="group">Group:</label>
+                <select id="group" name="group">
+                    <option value="PZ-21">PZ-21</option>
+                    <option value="PZ-22">PZ-22</option>
+                    <option value="PZ-23">PZ-23</option>
+                    <option value="PZ-24">PZ-24</option>
+                    <option value="PZ-25">PZ-25</option>
+                    <option value="PZ-26">PZ-26</option>
+                    <option value="PZ-27">PZ-27</option>
+                    <option value="PZ-28">PZ-28</option>
+                </select>
+
+            </div>
+
+            <div class="input-group">
+                <label for="fname">First Name:</label>
+                <input type="text" id="fname" name="fname">
+            </div>
+
+            <div class="input-group">
+                <label for="lname">Last Name:</label>
+                <input type="text" id="lname" name="lname">
+            </div>
+
+            <div class="input-group">
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+
+            </div>
+
+            <div class="input-group">
+                <label for="bday">Birthday:</label>
+                <input type="date" id="bday" name="bday">
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button onclick="closeStudentModal()" class="cancelStudentBt">Cancel</button>
+            <button onclick="submitStudent()" class="confirmStudentBt">Create</button>
+        </div>
+    </div>
+</div>
+<!-- The Delete Confirmation Modal -->
+<div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Confirm Delete</h2>
+        </div>
+        <div class="modal-body">
+            <p>Are you sure you want to delete this student?</p>
+        </div>
+        <div class="modal-footer">
+            <button onclick="CloseDeleteConfirmationModal()" class="cancelStudentBt">Cancel</button>
+            <button onclick="confirmDeleteStudent()" class="confirmStudentBt">Delete</button>
+        </div>
+    </div>
+</div>
+
+<div id="Students">
+    <div id="tasksCoursesContainer">
+        <h2>Task Deadlines</h2>
+
+        <div class="TaskContainer">
+            <h3>Task 6</h3>
+            <p>Description</p>
+            <br>Time left:
+            <button id="getAllStudentsButton">Get All Students</button>
+        </div>
+
+        <div class="TaskContainer">
+            <h3>Task 7</h3>
+            <p>Description</p>
+            <br>Time left:
+            <button id="clearStudentsButton">Clear All Students</button>
+        </div>
+
+        <div class="TaskContainer">
+            <h3>Task 7</h3>
+            <p>Description</p>
+            <br>Time left:
+        </div>
+    </div>
+
+
+    <div id="tableContainer">
+        <h2>Students</h2>
+        <button class="AddStudentBt" onclick="openAddStudentModal()">+ Add Student</button>
+        <table id="studentsTable">
+            <thead>
+            <tr>
+                <th><input type="checkbox"></th>
+                <th class="cell">Group</th>
+                <th class="cell">Name</th>
+                <th class="cell">Gender</th>
+                <th class="cell">Birthday</th>
+                <th class="cell">Status</th>
+                <th class="cell">Options</th>
+            </tr>
+
+            </thead>
+            <tbody id="studentsTableBody">
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            <button onclick="previousPage()" class="backward" id="prev">  <<  </button>
+            <button onclick="nextPage()" class="forward" id="next">  >>  </button>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<!--=============== MAIN JS ===============-->
+<script src="js/responsive_navbar.js"></script>
+</body>
+</html>

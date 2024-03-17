@@ -1,0 +1,58 @@
+#tasksCoursesContainer {
+    float: left;
+    width: 20vw; /* Adjust as needed */
+    height: auto; /* Adjust as needed */
+    margin-right: 10px; /* Space between this container and the table */
+}
+
+#tasksCoursesContainer {
+    /* Add your styles for the tasksCoursesContainer here */
+    padding: 20px;
+    background-color: hsl(230, 100%, 98%);
+    border-radius: 5px;
+}
+
+#tasksCoursesContainer h2 {
+    /* Add your styles for the h2 elements here */
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#tasksCoursesContainer .TaskContainer {
+    /* Add your styles for the TaskContainer divs here */
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: hsl(230, 100%, 98%);
+    border-radius: 5px;
+    box-shadow: 0 2px 16px hsla(230, 75%, 32%, .15);
+}
+
+#tasksCoursesContainer .TaskContainer:hover {
+    /* Add your styles for the TaskContainer divs when hovered here */
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+    position: relative;
+    background: hsl(230, 100%, 97%);
+}
+
+
+
+#tasksCoursesContainer .TaskContainer h3 {
+    /* Add your styles for the h3 elements here */
+    font-size: 20px;
+    color: #333;
+}
+
+#tasksCoursesContainer .TaskContainer p {
+    /* Add your styles for the p elements here */
+    font-size: 16px;
+    color: #666;
+}
+
+@media screen and (max-width: 800px) {
+    #tasksCoursesContainer {
+        display: none;
+    }
+}

@@ -1,18 +1,30 @@
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.4);
+/* Modal styles */
+:root {
+    --modal-bg-color: hsl(230, 100%, 98%);
+    --modal-border-color: #888;
+    --modal-header-footer-bg: #3b4854;
+    --modal-close-color: #aaa;
+
+
+    --first-color: hsl(230, 75%, 56%);
+    --title-color: hsl(230, 75%, 15%);
+    --text-color: hsl(230, 12%, 40%);
+    --container-color: hsl(230, 100%, 97%);
+    --border-color: hsl(230, 25%, 80%);
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    animation: bluringAnimation 0.75s ease forwards;
+    z-index: 99;
 }
 
 .modal-content {
@@ -20,25 +32,21 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #fefefe;
+    width: 60%;
     margin: auto;
     padding: 0;
-    border: 1px solid #888;
-    width: 80%;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-    animation-name: fadeIn;
-    animation-duration: 0.4s;
+    border: 1px solid var(--modal-border-color);
+    background-color: var(--modal-bg-color);
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    animation: fadeIn 0.4s;
+    border-radius: 8px;
 }
 
-@keyframes animatetop {
-    from {top: -300px; opacity: 0}
-    to {top: 50%; opacity: 1}
-}
-
-.modal-header {
-    padding: 8px 16px;
-    background: #3b4854;
-    color: white;
+.modal-header,
+.modal-footer {
+    padding: 16px;
+    color: hsl(230, 12%, 40%);
+    box-shadow: 0 2px 16px hsla(230, 75%, 32%, .15);
 }
 
 .modal-body {
@@ -55,18 +63,30 @@
     margin-bottom: 10px;
 }
 
-.modal-body .input-group label, .modal-body .input-group select, .modal-body .input-group input {
+.modal-body .input-group select,
+.modal-body .input-group input {
     width: 45%;
 }
 
-.modal-footer {
-    padding: 8px 16px;
-    background: #3b4854;
-    color: white;
+.modal-body .input-group label{
+    display: block;
+    text-align: initial;
+    color: var(--title-color);
+    font-weight: var(--font-medium);
+    margin-bottom: .25rem;
+}
+
+.modal-body .input-group input,
+.modal-body .input-group select{
+    background-color: var(--container-color);
+    border: 2px solid var(--border-color);
+    padding: 0.3rem;
+    border-radius: .5rem;
+    color: var(--text-color);
 }
 
 .close {
-    color: #aaa;
+    color: var(--modal-close-color);
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -77,4 +97,20 @@
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes bluringAnimation {
+    from { backdrop-filter: blur(0); }
+    to { backdrop-filter: blur(10px); }
+}
+
+@media screen and (max-width: 400px) {
+    .modal-content {
+        width: 90%;
+    }
 }

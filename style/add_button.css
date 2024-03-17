@@ -1,0 +1,51 @@
+:root {
+    --bg-color: hsl(230, 100%, 98%);
+    --first-color: hsl(230, 75%, 56%);
+    --title-color: hsl(230, 75%, 15%);
+    --text-color: hsl(230, 12%, 40%);
+    --container-color: hsl(230, 100%, 97%);
+    --border-color: hsl(230, 25%, 80%);
+}
+
+.AddStudentBt, .backward, .forward {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    color: #263238;
+    background: hsl(230, 100%, 98%);
+
+    position: relative;
+    overflow: hidden;
+    transition: color 0.5s;
+    box-shadow: 0 2px 16px hsla(230, 75%, 32%, .15);
+    float: right;
+}
+
+.AddStudentBt::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(120deg, #7fc0bb, #6676c7);
+    z-index: -1;
+    transition: transform 0.5s;
+    transform: scale(0);
+    animation: gradient 5s infinite linear;
+}
+
+.AddStudentBt:hover::before {
+    transform: scale(1);
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}

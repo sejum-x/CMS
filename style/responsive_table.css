@@ -1,0 +1,172 @@
+/*studentsTable*/
+
+:root {
+    --first-color: hsl(230, 75%, 56%);
+    --title-color: hsl(230, 75%, 15%);
+    --text-color: hsl(230, 12%, 40%);
+    --container-color: hsl(230, 100%, 97%);
+    --border-color: hsl(230, 25%, 80%);
+}
+
+#tableContainer{
+    position: absolute;
+    left: 80%;
+    transform: translateX(-80%);
+    top: 20%;
+}
+
+#Students {
+    margin-top: 100px;
+}
+
+#studentsTable{
+    width: 70vw;
+
+    font-size: 17px;
+
+    border-radius: 7px;
+
+    border-collapse: separate;
+    border: 0;
+    box-shadow: 0 2px 16px hsla(230, 75%, 32%, .15);
+}
+
+#studentsTable tr {
+    height: 50px;
+}
+
+#studentsTable tbody tr:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+    position: relative;
+    background: hsl(230, 100%, 97%);
+}
+
+#Students th,
+#Students td {
+    border: none;
+    padding: 8px;
+    text-align: center;
+}
+#Students button {
+    padding: 5px 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+}
+
+.cancelStudentBt{
+    background-color: #db5c5c;
+}
+
+.confirmStudentBt, .forward, .backward{
+    background-color: #62b2aa;
+}
+
+
+.backward {
+    margin-right: 10px; /* Відступ справа від кнопки */
+}
+
+#Students button:hover {
+    opacity: 0.9;
+}
+
+.delete-button {
+    background-color: #db4d4d; /* Червоний колір для кнопки видалення */
+    color: white; /* Білий колір тексту */
+    border: none; /* Відсутність рамки */
+    padding: 5px 10px; /* Відступи */
+    cursor: pointer; /* Змінити курсор при наведенні */
+}
+
+.edit-button {
+    background-color: #729db7; /* Фіолетовий колір для кнопки редагування */
+    color: white; /* Білий колір тексту */
+    border: none; /* Відсутність рамки */
+    padding: 5px 10px; /* Відступи */
+    cursor: pointer; /* Змінити курсор при наведенні */
+}
+
+/* Зміна кольору кнопок при наведенні */
+.delete-button:hover,
+.edit-button:hover {
+    opacity: 0.8; /* Зменшення прозорості */
+}
+
+
+/*pagination*/
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+
+.page-numbers {
+    margin: 1em 1em 0;
+}
+
+.page-number {
+    padding: 0.5em;
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.active {
+    opacity: 1;
+}
+
+.status-active,
+.status-inactive {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-left: 5px;
+}
+
+.status-active {
+    background-color: #62b2aa; /* Зелений колір для активного статусу */
+}
+
+.status-inactive {
+    background-color: gray; /* Сірий колір для неактивного статусу */
+}
+
+
+.cell{
+    width: 20vh;
+}
+
+@media screen and (max-width: 800px) {
+
+    #tableContainer{
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 20%;
+    }
+
+    #Students button {
+        padding: 3px 5px; /* Змінено padding на 3px висота і 6px ширина */
+        cursor: pointer;
+        border: none;
+        border-radius: 4px;
+    }
+
+    #studentsTable .cell{
+
+    }
+
+    #studentsTable td {
+        font-size: 12px;
+    }
+
+    #Students button img {
+        width: 4px;
+        height: 4px;
+    }
+}
