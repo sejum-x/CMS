@@ -10,14 +10,21 @@
     <!--=============== CSS ===============-->
     <link rel="stylesheet" href="style/responsive_navbar.css">
     <link rel="stylesheet" href="style/responsive_table.css">
+    <link rel="stylesheet" href="style/chat.css">
     <link rel="stylesheet" href="style/add_button.css">
     <link rel="stylesheet" href="style/modal.css">
     <link rel="stylesheet" href="style/students_tasks.css">
+    <link rel="stylesheet" href="style/task.css">
 
 
     <script src="jquery-3.2.1.min.js" defer></script>
     <script src="script.js" defer></script>
-    <script src="js/cashing.js" defer></script>
+    <!--<script src="cashing.js" defer></script>-->
+    <script src="js/login_singup.js" defer></script>
+    <script src="js/task.js" defer></script>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" integrity="sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO" crossorigin="anonymous"></script>
+
+    <!--<link rel="manifest" href="manifest.json">-->
 
     <title>CMS</title>
 </head>
@@ -35,11 +42,11 @@
                 </li>
 
                 <li class="nav__item">
-                    <a href="#" class="nav__link">Students</a>
+                    <a href="#" class="nav__link" id="tableLink">Students</a>
                 </li>
 
                 <li class="nav__item">
-                    <a href="#" class="nav__link">Tasks</a>
+                    <a href="#" class="nav__link" id="taskLink">Tasks</a>
                 </li>
             </ul>
 
@@ -53,11 +60,19 @@
             <!-- Search button -->
             <i class="ri-search-line nav__search" id="search-btn"></i>
 
-            <!-- Search button -->
+            <!-- Chat button -->
             <i class="ri-message-line nav__message" id="message-btn"></i>
+            <div id="messageTooltip" class="tooltip">
+                <h3>Last three messages:</h3>
+                <ul id="lastMessages">
+                    <!-- Last messages will be appended here -->
+                </ul>
+            </div>
 
             <!-- Login button -->
             <i class="ri-user-line nav__login" id="login-btn"></i>
+            <!-- User Name -->
+            <p id="user-name" style="display: none;"></p>
 
             <!-- Toggle button -->
             <div class="nav__toggle" id="nav-toggle">
@@ -84,35 +99,75 @@
 
         <div class="login__group">
             <div>
-                <label for="email" class="login__label">Email</label>
-                <input type="email" placeholder="Write your email" id="email" class="login__input">
+                <label for="email_li" class="login__label">Email</label>
+                <input type="email" placeholder="Write your email" id="email_li" class="login__input">
             </div>
 
             <div>
-                <label for="password" class="login__label">Password</label>
-                <input type="password" placeholder="Enter your password" id="password" class="login__input">
+                <label for="password_li" class="login__label">Password</label>
+                <input type="password" placeholder="Enter your password" id="password_li" class="login__input">
             </div>
         </div>
 
         <div>
             <p class="login__signup">
-                You do not have an account? <a href="#">Sign up</a>
+                You do not have an account? <a href="#" id="signup-link">Sign up</a>
             </p>
 
             <a href="#" class="login__forgot">
                 You forgot your password
             </a>
 
-            <button type="submit" class="login__button">Log In</button>
+            <button class="login__button">Log In</button>
         </div>
     </form>
 
     <i class="ri-close-line login__close" id="login-close"></i>
 </div>
 
+<!--==================== SIGNUP ====================-->
+<div class="login" id="signup">
+    <form action="" class="login__form">
+        <h2 class="login__title">Sign Up</h2>
+
+        <div class="login__group">
+            <div>
+                <label for="email_su" class="login__label">Email</label>
+                <input type="email" placeholder="Write your email" id="email_su" class="login__input">
+            </div>
+
+            <div>
+                <label for="password_su" class="login__label">Password</label>
+                <input type="password" placeholder="Enter your password" id="password_su" class="login__input">
+            </div>
+
+            <div>
+                <label for="name_su" class="login__label">Name</label>
+                <input type="text" placeholder="Enter your name" id="name_su" class="login__input">
+            </div>
+
+            <div>
+                <label for="surname_su" class="login__label">Surname</label>
+                <input type="text" placeholder="Enter your surname" id="surname_su" class="login__input">
+            </div>
+        </div>
+
+        <div>
+            <button class="login__button">Sign Up</button>
+        </div>
+    </form>
+
+    <i class="ri-close-line login__close" id="signup-close"></i>
+</div>
+
+<!--==================== Profile ====================-->
+
+
+
+
 <!--==================== MAIN ====================-->
 
-<!-- The Modal -->
+<!--==================== MODAL ====================-->
 <div id="studentModal" class="modal" data-mode="add">
     <div class="modal-content">
         <div class="modal-header">
@@ -166,7 +221,7 @@
         </div>
     </div>
 </div>
-<!-- The Delete Confirmation Modal -->
+<!--==================== DELETE ====================-->
 <div id="deleteModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
@@ -176,7 +231,7 @@
             <p>Are you sure you want to delete this student?</p>
         </div>
         <div class="modal-footer">
-            <button onclick="CloseDeleteConfirmationModal()" class="cancelStudentBt">Cancel</button>
+            <button onclick="closeDeleteModal()" class="cancelStudentBt">Cancel</button>
             <button onclick="confirmDeleteStudent()" class="confirmStudentBt">Delete</button>
         </div>
     </div>
@@ -197,13 +252,39 @@
             <h3>Task 7</h3>
             <p>Description</p>
             <br>Time left:
-            <button id="clearStudentsButton">Clear All Students</button>
+            <button id="deleteAllStudentsButton">Clear All Students</button>
         </div>
 
         <div class="TaskContainer">
             <h3>Task 7</h3>
             <p>Description</p>
             <br>Time left:
+            <button id="clearCacheButton">Clear Cache</button>
+        </div>
+    </div>
+
+    <div id="taskContainer">
+        <h2>Task</h2>
+        <div class="board">
+            <form id="todo-form">
+                <label for="todo-input"></label><input type="text" placeholder="New TODO..." id="todo-input">
+                <button>Add +</button>
+            </form>
+
+            <div class="lanes">
+                <div class="swim-lane" id="todo-lane">
+                    <h3 class="heading">TODO</h3>
+
+                </div>
+
+                <div class="swim-lane" id="doing-lane">
+                    <h3 class="heading">DOING</h3>
+                </div>
+
+                <div class="swim-lane" id="done-lane">
+                    <h3 class="heading">DONE</h3>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -234,12 +315,107 @@
         </div>
     </div>
 
+    <div id="chatContainer">
+        <div class="ChatInterface">
+            <!-- User information and chat list -->
+            <div class="AllChats">
+                <h2>Chats</h2>
+
+                <div class="ChatUserInfo">
+                    <div class="UserPhoto"></div>
+                    <h3>User Name</h3>
+                    <p>User Position</p>
+                </div>
+
+                <div class="ChatOperations">
+                    <button id="createChatBtn">Create Chat</button>
+                    <button id="joinChatBtn">Join Chat</button>
+                </div>
+
+                <div id="chatList" class="UserChatList">
+                    <!-- Populate with user's chats -->
+
+                </div>
+            </div>
+
+            <!-- Chat messages -->
+            <div class="Chat">
+                <div id="chatMessages">
+                    <ul id="allMessages">
+
+                    </ul>
+
+                    <input type="text" id="messageInput" placeholder="Type a message">
+                    <button id="sendMessageBtn">Send</button>
+                    <script type="module" src="js/chat.js"></script>
+                </div>
+            </div>
+
+            <!-- Chat information -->
+            <div class="ChatInfo">
+                <h2>Chat Information</h2>
+                <div id="chatInfo">
+                    <p><strong>Name:</strong> <span id="chatName"></span></p>
+                    <p><strong>Access Code:</strong> <span id="chatCode"></span></p>
+                    <p><strong>Participants:</strong> <span id="participants"></span></p>
+                    <p><strong>Message Count:</strong> <span id="messageCount"></span></p>
+                    <!-- Add more information here as needed -->
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+    <div id="joinChatPanel">
+        <input type="text" id="JoinChatCodeInput" placeholder="Enter chat name">
+        <button id="joinChat">Join</button>
+    </div>
+
+    <div id="createChatPanel">
+        <input type="text" id="createChatNameInput" placeholder="Enter chat name">
+        <input type="text" id="createChatCodeInput" placeholder="Enter chat code">
+        <button id="createChat">Create</button>
+        <button id="cancelCreateChat">Cancel</button>
+    </div>
+    </div>
+
 </div>
 
 
 
+<div id="errorModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close">×</span>
+            <h2>Error</h2>
+        </div>
+        <div class="modal-body">
+            <p id="errorMessage"></p>
+        </div>
+        <div class="modal-footer">
+            <button onclick="closeErrorModal()" class="cancelStudentBt">Close</button>
+        </div>
+    </div>
+</div>
 
-<!--=============== MAIN JS ===============-->
+<div id="messageModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close">×</span>
+            <h2>Message</h2>
+        </div>
+        <div class="modal-body">
+            <p id="message"></p>
+        </div>
+        <div class="modal-footer">
+            <button onclick="closeMessageModal()" class="cancelStudentBt">Ok</button>
+        </div>
+    </div>
+</div>
+
 <script src="js/responsive_navbar.js"></script>
+
 </body>
 </html>

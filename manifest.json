@@ -1,0 +1,21 @@
+{
+  "name": "CMS",
+  "short_name": "CMS",
+  "start_url": "students_table.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#7eaa9f",
+  "icons": [
+    {
+      "src": "avatarplaceholder.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "avatarplaceholder.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "description": "Webpage for managing students data, managing tasks (to do in progress done), and messaging"
+}

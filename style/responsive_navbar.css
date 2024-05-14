@@ -26,8 +26,8 @@
     --font-semi-bold: 600;
 
     /*========== z index ==========*/
-    --z-fixed: 100;
-    --z-modal: 1000;
+    --z-fixed: 90;
+    --z-modal: 98;
 }
 
 /*========== Responsive typography ==========*/
@@ -83,8 +83,8 @@ img {
 
 /*=============== REUSABLE CSS CLASSES ===============*/
 .container {
-    max-width: 1120px;
-    margin-inline: 1.5rem;
+    max-width: 100%;
+    padding: 0 2% 0 2%;
 }
 
 .main {

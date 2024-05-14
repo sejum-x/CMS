@@ -1,0 +1,232 @@
+#chatContainer {
+    display: none;
+    width: 70%;
+    position: absolute;
+    left: 80%;
+    transform: translateX(-80%);
+    top: 17%;
+    height: 80%;
+}
+
+/* Chat Interface */
+.ChatInterface {
+display: flex;
+    flex-direction: row;
+    background-color: #f5f5f5;
+    padding: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* User Information and Chat List */
+.AllChats {
+    width: 25%;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.AllChats h2 {
+    margin-bottom: 20px;
+}
+
+.AllChats img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.AllChats h3,
+.AllChats p {
+    margin: 0;
+}
+
+/* Стилі для блоку інформації про користувача в чаті */
+.ChatUserInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Стилі для фото користувача в чаті */
+.UserPhoto {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    background: #263238;
+}
+
+/* Стилі для імені користувача в чаті */
+.ChatUserInfo h3 {
+    margin: 0;
+}
+
+/* Стилі для посади користувача в чаті */
+.ChatUserInfo p {
+    margin: 0;
+    color: #888;
+}
+
+/* Стилі для блоку операцій з чатом */
+.ChatOperations {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+/* Стилі для кнопок "Create Chat" та "Join Chat" */
+.ChatOperations button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Стилі для блоку чатів користувача */
+.UserChatList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 20px;
+}
+
+/* Стилі для панелі чату */
+/* Стилі для панелі чату */
+.ChatPanel {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Стилі для фото чату */
+.ChatPhoto {
+    width: 50px;
+    height: 50px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    margin-right: 10px; /* Додаємо маржу між фото і текстом */
+}
+
+/* Стилі для назви чату */
+.ChatPanel h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+/* Стилі для опису чату */
+.ChatPanel p {
+    margin: 5px 0;
+    color: #888;
+    font-size: 14px;
+}
+
+
+
+/* Chat Messages */
+.Chat {
+    width: 50%;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Chat Information */
+.ChatInfo {
+    width: 25%;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+#joinChatPanel {
+    display: none;
+    position: fixed;
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#joinChatPanel input[type="text"] {
+    width: 200px;
+    padding: 5px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+#joinChatPanel button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#createChatPanel {
+    display: none;
+    position: fixed;
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#createChatPanel input[type="text"] {
+    width: 200px;
+    padding: 5px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+#createChatPanel button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#createChatPanel button#cancelCreateChat {
+    margin-left: 10px;
+    background-color: #dc3545;
+}
+
+.tooltip {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 1;
+    width: 300px;
+    top: 70px;
+    right: 0;
+}
+
+#message-btn:hover + .tooltip {
+    display: block;
+}
