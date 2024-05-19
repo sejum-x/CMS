@@ -188,13 +188,96 @@ socket.on('users', (receivedUsers) => {
     users = receivedUsers;
 });
 
-// Function to fetch last messages of a user
-function fetchLastMessages(name, surname) {
+
+// Функція, що відкриває панель з чатами при кліці
+let tooltipVisible = false;
+let tooltipTimer;
+
+// Функція для показу tooltip
+function showTooltip() {
+    clearTimeout(tooltipTimer);
+    tooltipVisible = true;
+    document.getElementById('messageTooltip').style.display = 'block';
 }
 
-
-// Use the function
-function ShowLastMessages() {
-    fetchLastMessages("Admin", "Adminenko")
+// Функція для приховування tooltip з затримкою
+function hideTooltip() {
+    tooltipTimer = setTimeout(() => {
+        tooltipVisible = false;
+        document.getElementById('messageTooltip').style.display = 'none';
+    }, 500); // Затримка в мілісекундах перед прихованням tooltip
 }
-document.getElementById('message-btn').addEventListener('mouseover', ShowLastMessages);
+
+// Показуємо tooltip при наведенні на кнопку
+document.getElementById('message-btn').addEventListener('mouseover', function() {
+    showTooltip();
+});
+
+// Приховуємо tooltip при знятті наведення з кнопки
+document.getElementById('message-btn').addEventListener('mouseleave', function() {
+    hideTooltip();
+});
+
+// Показуємо tooltip при наведенні на tooltip
+document.getElementById('messageTooltip').addEventListener('mouseover', function() {
+    showTooltip();
+});
+
+// Приховуємо tooltip при знятті наведення з tooltip
+document.getElementById('messageTooltip').addEventListener('mouseleave', function() {
+    hideTooltip();
+});
+
+
+// Підвантаження останніх трьох повідомлень при наведенні на кнопку
+document.getElementById('message-btn').addEventListener('mouseover', function() {
+    getNameAndSurnameFromElement('user-name');
+    fetch(`http://localhost:3000/get-last-three-messages?name=${name}&surname=${surname}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log('Received data:', data); // Log the received data for inspection
+
+            // Clear the existing messages
+            const lastMessagesElement = document.getElementById('lastMessages');
+            lastMessagesElement.innerHTML = '';
+
+            // Check if the data is in the expected format
+            if (Array.isArray(data) && data.length > 0) {
+                // Iterate over the messages array and append them to the list
+                data.forEach(item => {
+                    const messageElement = document.createElement('li');
+                    messageElement.textContent = `${item.message.user}: ${item.message.message}`;
+
+                    // Add event listener to open chat panel on click
+                    messageElement.addEventListener('click', function() {
+                        openChatPanel(item.chatCode); // Assuming chatCode is unique identifier for chat
+                    });
+
+                    lastMessagesElement.appendChild(messageElement);
+                });
+            } else {
+                // Handle case where data is not in the expected format
+                console.error('Received unexpected data format:', data);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+});
+
+
+// Функція, що відкриває панель з чатами
+function openChatPanel(chatCode) {
+    var studentsTable = document.getElementById('tableContainer');
+    var chatInterface = document.getElementById('chatContainer');
+    var taskInterface = document.getElementById('taskContainer');
+
+    // Додайте код, який відкриває панель з чатами з кодом чату chatCode
+    studentsTable.style.display = 'none';
+    taskInterface.style.display = 'none';
+    chatInterface.style.display = 'block';
+    // Наприклад, ви можете викликати функцію, яка відкриває панель з чатами із кодом чату chatCode
+    renderChats();
+    handleChatButtonClick(chatCode);
+    // openChat(chatCode);
+}

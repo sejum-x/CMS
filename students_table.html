@@ -67,6 +67,11 @@
                 <ul id="lastMessages">
                     <!-- Last messages will be appended here -->
                 </ul>
+
+                <h3>Task TODO</h3>
+                <ul id="taskTODO">
+                    <!-- Last messages will be appended here -->
+                </ul>
             </div>
 
             <!-- Login button -->
@@ -339,16 +344,18 @@
             </div>
 
             <!-- Chat messages -->
+            <div class="ChatAndInput">
             <div class="Chat">
                 <div id="chatMessages">
                     <ul id="allMessages">
-
                     </ul>
-
-                    <input type="text" id="messageInput" placeholder="Type a message">
-                    <button id="sendMessageBtn">Send</button>
                     <script type="module" src="js/chat.js"></script>
                 </div>
+            </div>
+            <div class="messageInputContainer">
+                <input type="text" id="messageInput" placeholder="Type a message">
+                <button id="sendMessageBtn">Send</button>
+            </div>
             </div>
 
             <!-- Chat information -->

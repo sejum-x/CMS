@@ -100,7 +100,6 @@ display: flex;
 }
 
 /* Стилі для панелі чату */
-/* Стилі для панелі чату */
 .ChatPanel {
     display: flex;
     align-items: flex-start;
@@ -133,14 +132,35 @@ display: flex;
 }
 
 
-
+#chatList{
+    height: 290px; /* Встановлюємо фіксовану висоту */
+    overflow-y: auto; /* Додаємо прокрутку */
+}
 /* Chat Messages */
+.ChatAndInput {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+}
+
 .Chat {
-    width: 50%;
+
     background-color: #fff;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: 550px; /* Встановлюємо фіксовану висоту */
+    overflow-y: auto; /* Додаємо прокрутку */
 }
+.messageInputContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    bottom: 0;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 
 /* Chat Information */
 .ChatInfo {
@@ -150,7 +170,10 @@ display: flex;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
+    height: 600px; /* Встановлюємо фіксовану висоту */
+    overflow-y: auto; /* Додаємо прокрутку */
 }
+
 
 #joinChatPanel {
     display: none;
@@ -223,10 +246,28 @@ display: flex;
     padding: 10px;
     z-index: 1;
     width: 300px;
-    top: 70px;
+    top: 60px;
     right: 0;
 }
 
-#message-btn:hover + .tooltip {
+/*#message-btn:hover + .tooltip {
     display: block;
+}*/
+/* CSS стилі для останніх трьох повідомлень */
+#lastMessages {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#lastMessages li {
+    cursor: pointer;
+    padding: 5px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#lastMessages li:hover {
+    background-color: #f9f9f9;
 }

@@ -8,6 +8,8 @@ const todoLane = document.getElementById("todo-lane");
 const doingLane = document.getElementById("doing-lane");
 const doneLane = document.getElementById("done-lane");
 
+const messageBtn = document.getElementById('message-btn');
+
 const renderTasks = () => {
     todoLane.innerHTML = '';
     doingLane.innerHTML = '';
@@ -41,6 +43,8 @@ const renderTasks = () => {
         }
     });
 
+
+
     console.log(tasks);
 };
 
@@ -62,6 +66,14 @@ const createTaskElement = (task) => {
     taskElement.addEventListener("dragend", () => {
         taskElement.classList.remove("is-dragging");
     });
+
+// Додайте анімацію до кнопки message-btn
+    messageBtn.classList.add('pulse');
+
+    setTimeout(() => {
+        // Зняти анімацію після певного часу (наприклад, після 1 секунди)
+        messageBtn.classList.remove('pulse');
+    }, 1000); // Час в мілісекундах
 
     return taskElement;
 };
@@ -160,5 +172,20 @@ droppables.forEach((zone) => {
             .catch(error => console.error('Error updating task stage on server:', error));
     });
 });
+
+document.getElementById('message-btn').addEventListener('mouseover', function() {
+    const taskTODOList = document.getElementById('taskTODO');
+    const todoTasks = tasks.filter(task => task.stage === 'todo');
+    taskTODOList.innerHTML = '';
+    todoTasks.forEach(task => {
+        const taskItem = document.createElement('li');
+        taskItem.textContent = task.text;
+        taskTODOList.appendChild(taskItem);
+    });
+});
+
+
+
+
 
 renderTasks();

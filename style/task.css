@@ -6,7 +6,7 @@
     --border-color: hsl(230, 25%, 80%);
 }
 
-#Container {
+#taskContainer {
     display: none;
     width: 70%;
     position: absolute;
@@ -94,4 +94,20 @@
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);
     background: rgb(50, 50, 50);
     color: white;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.pulse {
+    animation: pulse 1s infinite;
 }
